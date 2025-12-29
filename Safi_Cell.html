@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafiCell Energy | Powering Africa's Future</title>
+    <meta name="description" content="SafiCell transforms retired EV batteries into intelligent, affordable energy storage for Africa.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Outfit"', 'sans-serif'],
+                        heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0B0F19',    // Deepest background
+                            surface: '#151B2B', // Card background
+                            accent: '#10B981',  // Emerald
+                            glow: '#34D399',    // Light Emerald
+                            secondary: '#0EA5E9' // Sky Blue
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'hero-glow': 'conic-gradient(from 90deg at 50% 50%, #0F172A 0%, #102A28 50%, #0F172A 100%)',
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Glassmorphism Utilities */
+        .glass {
+            background: rgba(21, 27, 43, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.1);
+            transform: translateY(-5px);
+        }
+
+        /* Text Gradients */
+        .text-gradient-primary {
+            background: linear-gradient(to right, #34D399, #0EA5E9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0F19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1F2937;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #10B981;
+        }
+
+        /* Timeline Dots */
+        .timeline-dot::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #10B981;
+            border-radius: 50%;
+            left: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-brand-dark text-slate-300 overflow-x-hidden selection:bg-brand-accent selection:text-white">
+
+    <!-- Animated Background Mesh -->
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-brand-accent/10 rounded-full mix-blend-screen filter blur-[100px] animate-blob"></div>
+        <div class="absolute top-0 right-1/4 w-96 h-96 bg-brand-secondary/10 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-2000"></div>
+        <div class="absolute -bottom-32 left-1/3 w-96 h-96 bg-purple-500/10 rounded-full mix-blend-screen filter blur-[100px] animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 border-b border-transparent py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <!-- Brand -->
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="relative w-10 h-10 flex items-center justify-center bg-gradient-to-br from-brand-accent to-brand-secondary rounded-lg shadow-lg group-hover:shadow-brand-accent/30 transition-all">
+                        <i class="fa-solid fa-bolt text-white text-xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-heading font-bold text-xl text-white leading-none tracking-tight">Safi<span class="text-brand-accent">Cell</span></span>
+                        <span class="text-[10px] font-mono text-slate-400 tracking-widest uppercase">Energy Ltd</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#problem" class="text-sm font-medium hover:text-brand-accent transition-colors">The Challenge</a>
+                    <a href="#solution" class="text-sm font-medium hover:text-brand-accent transition-colors">Technology</a>
+                    <a href="#roadmap" class="text-sm font-medium hover:text-brand-accent transition-colors">Roadmap</a>
+                    <a href="#team" class="text-sm font-medium hover:text-brand-accent transition-colors">Team</a>
+                </div>
+
+                <!-- CTA -->
+                <div class="hidden md:block">
+                    <a href="#contact" class="relative inline-flex h-10 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
+                        <span class="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]"></span>
+                        <span class="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-brand-dark px-6 py-1 text-sm font-medium text-white backdrop-blur-3xl hover:bg-brand-surface transition-colors">
+                            Invest Now
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Btn -->
+                <button id="menu-btn" class="md:hidden text-2xl text-white">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 z-10 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Text Content -->
+                <div data-aos="fade-right" data-aos-duration="1000">
+                    <div class="inline-flex items-center px-3 py-1 rounded-full border border-brand-accent/30 bg-brand-accent/10 text-brand-accent text-xs font-bold uppercase tracking-widest mb-6">
+                        <span class="w-2 h-2 rounded-full bg-brand-accent mr-2 animate-pulse"></span>
+                        Seed Round Open
+                    </div>
+                    <h1 class="text-5xl lg:text-7xl font-heading font-bold text-white leading-tight mb-6">
+                        Reimagining <br>
+                        <span class="text-gradient-primary">Energy Storage</span> <br>
+                        for Africa.
+                    </h1>
+                    <p class="text-lg text-slate-400 mb-8 leading-relaxed max-w-lg">
+                        We repurpose retired EV batteries into intelligent, cloud-connected energy storage systems. Affordable. Sustainable. Scalable.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#solution" class="px-8 py-4 bg-brand-accent hover:bg-emerald-500 text-brand-dark font-bold rounded-lg transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] flex items-center justify-center">
+                            Explore Technology <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="https://saficell.com/deck" target="_blank" class="px-8 py-4 bg-brand-surface border border-slate-700 hover:border-brand-secondary text-white font-medium rounded-lg transition-all flex items-center justify-center">
+                            <i class="fa-solid fa-file-pdf mr-2"></i> Download Deck
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Visual / Abstract Interactive -->
+                <div class="relative" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
+                    <div class="relative z-10 glass-card p-6 rounded-2xl animate-float">
+                        <!-- Mockup Header -->
+                        <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-4">
+                            <div class="flex space-x-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <div class="text-xs font-mono text-slate-500">saficell_bms_dashboard.exe</div>
+                        </div>
+                        <!-- Mockup Body -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-brand-dark/50 p-4 rounded-lg border border-slate-700">
+                                <div class="text-slate-500 text-xs mb-1">Battery Health (SOH)</div>
+                                <div class="text-2xl font-bold text-white">84%</div>
+                                <div class="w-full bg-slate-700 h-1.5 mt-2 rounded-full overflow-hidden">
+                                    <div class="bg-brand-accent h-full w-[84%]"></div>
+                                </div>
+                            </div>
+                            <div class="bg-brand-dark/50 p-4 rounded-lg border border-slate-700">
+                                <div class="text-slate-500 text-xs mb-1">Current Load</div>
+                                <div class="text-2xl font-bold text-white">1.2 kW</div>
+                                <div class="flex items-center mt-2 text-xs text-brand-secondary">
+                                    <i class="fa-solid fa-solar-panel mr-1"></i> Solar Input Active
+                                </div>
+                            </div>
+                            <div class="col-span-2 bg-brand-dark/50 p-4 rounded-lg border border-slate-700">
+                                <div class="flex justify-between items-center mb-2">
+                                    <div class="text-slate-500 text-xs">Cell Balancing Status</div>
+                                    <div class="text-brand-accent text-xs font-mono animate-pulse">ACTIVE</div>
+                                </div>
+                                <div class="flex gap-1 h-8 items-end justify-between">
+                                    <div class="w-1/12 bg-slate-600 h-[80%] rounded-sm"></div>
+                                    <div class="w-1/12 bg-brand-accent h-[82%] rounded-sm shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+                                    <div class="w-1/12 bg-slate-600 h-[79%] rounded-sm"></div>
+                                    <div class="w-1/12 bg-slate-600 h-[81%] rounded-sm"></div>
+                                    <div class="w-1/12 bg-slate-600 h-[80%] rounded-sm"></div>
+                                    <div class="w-1/12 bg-brand-accent h-[83%] rounded-sm shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+                                    <div class="w-1/12 bg-slate-600 h-[80%] rounded-sm"></div>
+                                    <div class="w-1/12 bg-slate-600 h-[79%] rounded-sm"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Decorative Elements behind mockup -->
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-brand-accent to-transparent opacity-20 rounded-full blur-3xl"></div>
+                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-gradient-to-tr from-brand-secondary to-transparent opacity-20 rounded-full blur-3xl"></div>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 border-t border-slate-800 pt-10">
+                <div class="text-center">
+                    <h3 class="text-3xl font-bold text-white mb-1">$1B+</h3>
+                    <p class="text-sm text-slate-500">Market Opportunity</p>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-3xl font-bold text-white mb-1">80%</h3>
+                    <p class="text-sm text-slate-500">Retained Battery Capacity</p>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-3xl font-bold text-white mb-1">5yr+</h3>
+                    <p class="text-sm text-slate-500">Lifespan Extension</p>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-3xl font-bold text-white mb-1">IoT</h3>
+                    <p class="text-sm text-slate-500">Cloud Integrated</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem & Opportunity -->
+    <section id="problem" class="py-24 relative z-10 bg-brand-surface/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-brand-accent font-bold tracking-widest text-sm uppercase mb-2">The Market Gap</h2>
+                <h3 class="text-3xl md:text-5xl font-heading font-bold text-white">Why SafiCell Exists</h3>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="glass-card p-8 rounded-2xl relative group overflow-hidden" data-aos="fade-up" data-aos-delay="0">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-red-500/10 rounded-bl-full transition-all group-hover:bg-red-500/20"></div>
+                    <div class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-6 text-red-400 text-xl border border-slate-700 group-hover:border-red-500/50 transition-colors">
+                        <i class="fa-solid fa-dumpster-fire"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-4">The E-Waste Crisis</h4>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Africa’s EV market is surging, but retired batteries are becoming hazardous waste despite having <span class="text-white font-semibold">80% remaining health</span>.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="glass-card p-8 rounded-2xl relative group overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-yellow-500/10 rounded-bl-full transition-all group-hover:bg-yellow-500/20"></div>
+                    <div class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-6 text-yellow-400 text-xl border border-slate-700 group-hover:border-yellow-500/50 transition-colors">
+                        <i class="fa-solid fa-bolt-slash"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-4">Energy Poverty</h4>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Grid instability plagues millions. New lithium batteries are too expensive for the average household, slowing solar adoption.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card p-8 rounded-2xl relative group overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-full transition-all group-hover:bg-brand-accent/20"></div>
+                    <div class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center mb-6 text-brand-accent text-xl border border-slate-700 group-hover:border-brand-accent/50 transition-colors">
+                        <i class="fa-solid fa-puzzle-piece"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-4">The Missing Link</h4>
+                    <p class="text-slate-400 leading-relaxed text-sm">
+                        Current BMS solutions are generic and dumb. They can't handle the complexity of "second-life" cells. <span class="text-brand-accent">Until now.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution / Interactive How it Works -->
+    <section id="solution" class="py-24 relative z-10 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                
+                <!-- Visual Flow -->
+                <div class="relative" data-aos="zoom-in">
+                    <div class="absolute inset-0 bg-brand-accent/5 filter blur-3xl rounded-full"></div>
+                    <div class="relative z-10 space-y-4">
+                        <!-- Step 1 -->
+                        <div class="flex items-center p-4 bg-brand-surface/80 backdrop-blur-md border border-slate-700 rounded-xl transform translate-x-0 lg:translate-x-8">
+                            <div class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center text-brand-secondary border border-slate-600 flex-shrink-0">
+                                <i class="fa-solid fa-car"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h5 class="text-white font-bold">1. Collection</h5>
+                                <p class="text-xs text-slate-400">Retired EV Batteries (80% SOH)</p>
+                            </div>
+                            <i class="fa-solid fa-arrow-down text-slate-600 ml-auto lg:hidden"></i>
+                        </div>
+                        
+                        <!-- Arrow -->
+                        <div class="h-8 w-0.5 bg-slate-700 mx-auto lg:mx-0 lg:ml-14"></div>
+
+                        <!-- Step 2 (Main Product) -->
+                        <div class="flex items-center p-6 bg-brand-dark border border-brand-accent rounded-xl shadow-[0_0_30px_rgba(16,185,129,0.15)] transform scale-105">
+                            <div class="w-16 h-16 bg-brand-accent/20 rounded-full flex items-center justify-center text-brand-accent border border-brand-accent/50 flex-shrink-0 animate-pulse">
+                                <i class="fa-solid fa-microchip text-2xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h5 class="text-white font-bold text-lg">2. SafiCell Smart BMS</h5>
+                                <p class="text-xs text-slate-300 mt-1">Active Balancing + IoT Control + Safety</p>
+                            </div>
+                        </div>
+
+                        <!-- Arrow -->
+                        <div class="h-8 w-0.5 bg-slate-700 mx-auto lg:mx-0 lg:ml-14"></div>
+
+                        <!-- Step 3 -->
+                        <div class="flex items-center p-4 bg-brand-surface/80 backdrop-blur-md border border-slate-700 rounded-xl transform translate-x-0 lg:translate-x-8">
+                            <div class="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center text-yellow-400 border border-slate-600 flex-shrink-0">
+                                <i class="fa-solid fa-house-signal"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h5 class="text-white font-bold">3. Application</h5>
+                                <p class="text-xs text-slate-400">Affordable Home Energy Storage</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div data-aos="fade-left">
+                    <h2 class="text-brand-accent font-bold tracking-widest text-sm uppercase mb-2">Our Core Technology</h2>
+                    <h3 class="text-3xl md:text-4xl font-heading font-bold text-white mb-6">Intelligent. Configurable. Connected.</h3>
+                    <p class="text-slate-400 mb-8 leading-relaxed">
+                        SafiCell isn't just a circuit board; it's an operating system for batteries. Our proprietary hardware and firmware bridge the gap between varied battery chemistries and reliable home power.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex group">
+                            <div class="w-10 h-10 bg-brand-surface border border-slate-700 rounded flex items-center justify-center text-brand-accent mr-4 group-hover:border-brand-accent transition-colors">
+                                <i class="fa-brands fa-bluetooth-b"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold">Multi-Protocol Connectivity</h4>
+                                <p class="text-sm text-slate-500 mt-1">CAN, RS485, I²C, BLE, and IoT. Works with any inverter.</p>
+                            </div>
+                        </div>
+                        <div class="flex group">
+                            <div class="w-10 h-10 bg-brand-surface border border-slate-700 rounded flex items-center justify-center text-brand-accent mr-4 group-hover:border-brand-accent transition-colors">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold">Cloud & OTA Updates</h4>
+                                <p class="text-sm text-slate-500 mt-1">Remote diagnostics and firmware upgrades to improve efficiency over time.</p>
+                            </div>
+                        </div>
+                        <div class="flex group">
+                            <div class="w-10 h-10 bg-brand-surface border border-slate-700 rounded flex items-center justify-center text-brand-accent mr-4 group-hover:border-brand-accent transition-colors">
+                                <i class="fa-solid fa-scale-balanced"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold">Dual-Input Active Balancing</h4>
+                                <p class="text-sm text-slate-500 mt-1">Intelligently manages Solar vs Grid charging to maximize cell life.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section id="roadmap" class="py-24 bg-brand-dark relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-white">Strategic Roadmap</h2>
+            </div>
+
+            <div class="relative">
+                <!-- Vertical Line -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-slate-800"></div>
+
+                <div class="space-y-16">
+                    <!-- Phase 1 -->
+                    <div class="relative flex items-center justify-between w-full" data-aos="fade-up">
+                        <div class="w-5/12 text-right pr-8 hidden md:block">
+                            <h4 class="text-xl font-bold text-brand-accent">Phase 1: Prototype & POC</h4>
+                            <p class="text-sm text-slate-400 mt-2">Hardware finalization and firmware proof-of-concept.</p>
+                        </div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-brand-dark border-4 border-brand-accent rounded-full z-10 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-white rounded-full"></div>
+                        </div>
+                        <div class="w-5/12 pl-8 md:w-5/12 w-full ml-auto md:ml-0 glass-card p-6 rounded-xl border-l-4 border-l-brand-accent">
+                            <span class="text-xs font-mono text-brand-secondary mb-2 block">Q1 - Q2 2026</span>
+                            <h4 class="text-lg font-bold text-white md:hidden">Phase 1: Prototype</h4>
+                            <p class="text-slate-400 text-sm">BMS Board Design, Firmware V1.0, Lab Testing.</p>
+                        </div>
+                    </div>
+
+                    <!-- Phase 2 -->
+                    <div class="relative flex items-center justify-between w-full flex-row-reverse" data-aos="fade-up">
+                        <div class="w-5/12 text-left pl-8 hidden md:block">
+                            <h4 class="text-xl font-bold text-brand-secondary">Phase 2: Field Pilots</h4>
+                            <p class="text-sm text-slate-400 mt-2">Deploying units with local solar partners and EV workshops.</p>
+                        </div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-brand-dark border-4 border-brand-secondary rounded-full z-10"></div>
+                        <div class="w-5/12 pr-8 md:w-5/12 w-full mr-auto md:mr-0 glass-card p-6 rounded-xl border-r-4 border-r-brand-secondary text-right md:text-left">
+                            <span class="text-xs font-mono text-brand-secondary mb-2 block">Q3 2026</span>
+                            <h4 class="text-lg font-bold text-white md:hidden">Phase 2: Pilots</h4>
+                            <p class="text-slate-400 text-sm">Real-world testing, App Beta launch, Data collection.</p>
+                        </div>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div class="relative flex items-center justify-between w-full" data-aos="fade-up">
+                        <div class="w-5/12 text-right pr-8 hidden md:block">
+                            <h4 class="text-xl font-bold text-white">Phase 3: Commercial Scale</h4>
+                            <p class="text-sm text-slate-400 mt-2">Market entry in Kenya, expansion to East Africa.</p>
+                        </div>
+                        <div class="absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-brand-dark border-4 border-white rounded-full z-10"></div>
+                        <div class="w-5/12 pl-8 md:w-5/12 w-full ml-auto md:ml-0 glass-card p-6 rounded-xl border-l-4 border-l-white">
+                            <span class="text-xs font-mono text-brand-secondary mb-2 block">2027+</span>
+                            <h4 class="text-lg font-bold text-white md:hidden">Phase 3: Scale</h4>
+                            <p class="text-slate-400 text-sm">Mass production, B2B Licensing, Pan-African distribution.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-24 bg-brand-surface/30 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-heading font-bold text-white mb-12">Meet the Visionary</h2>
+            
+            <div class="max-w-lg mx-auto glass-card p-8 rounded-2xl relative overflow-hidden group" data-aos="zoom-in">
+                <!-- Glow Effect -->
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-accent to-brand-secondary"></div>
+                
+                <div class="flex flex-col items-center">
+                    <div class="w-28 h-28 rounded-full bg-gradient-to-br from-brand-surface to-slate-800 border-2 border-brand-accent p-1 mb-6">
+                        <!-- Placeholder for Image -->
+                        <div class="w-full h-full rounded-full bg-slate-800 flex items-center justify-center overflow-hidden">
+                             <i class="fa-solid fa-user-astronaut text-4xl text-slate-600"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white">Eng. Eric Mulwa</h3>
+                    <p class="text-brand-accent font-medium text-sm mb-4 uppercase tracking-wider">Founder & Lead Embedded Engineer</p>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                        Specialized in Embedded Hardware and Firmware systems. Passionate about solving the African energy crisis through circular economy engineering.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-brand-accent hover:text-white transition-all">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-brand-secondary hover:text-white transition-all">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="mailto:mulwaericbsc@gmail.com" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-white hover:text-brand-dark transition-all">
+                            <i class="fa-solid fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / CTA -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-brand-accent/5"></div>
+        <div class="absolute -top-24 -right-24 w-96 h-96 bg-brand-accent/10 rounded-full blur-[128px]"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 class="text-4xl md:text-5xl font-heading font-bold text-white mb-6">Invest in the Circular Future</h2>
+            <p class="text-xl text-slate-400 mb-10">
+                We are raising <span class="text-brand-accent font-bold">$150,000</span> seed capital to accelerate hardware testing and pilot deployment.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <a href="mailto:mulwaericbsc@gmail.com" class="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-white transition-all duration-200 bg-brand-accent font-heading rounded-lg hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-accent focus:ring-offset-brand-dark">
+                    <i class="fa-solid fa-envelope mr-2"></i> Contact Founder
+                    <div class="absolute -inset-3 rounded-lg bg-brand-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-200 blur-lg"></div>
+                </a>
+                <a href="tel:+254796456877" class="inline-flex items-center justify-center px-8 py-4 text-lg font-bold text-slate-300 transition-all duration-200 bg-brand-surface border border-slate-700 rounded-lg hover:border-brand-accent hover:text-white">
+                    <i class="fa-solid fa-phone mr-2"></i> +254 796 456 877
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 bg-brand-dark pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fa-solid fa-bolt text-brand-accent text-xl"></i>
+                        <span class="font-heading font-bold text-2xl text-white">Safi<span class="text-brand-accent">Cell</span></span>
+                    </div>
+                    <p class="text-slate-500 text-sm max-w-xs">
+                        Powering Africa through Smart Battery Repurposing. Building the circular energy economy, one cell at a time.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-slate-500">
+                        <li><a href="#problem" class="hover:text-brand-accent transition-colors">About</a></li>
+                        <li><a href="#solution" class="hover:text-brand-accent transition-colors">Technology</a></li>
+                        <li><a href="#team" class="hover:text-brand-accent transition-colors">Team</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm text-slate-500">
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-slate-600 text-xs">© 2025 SafiCell Energy Limited. All rights reserved.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-slate-600 hover:text-white transition-colors"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="text-slate-600 hover:text-white transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize Animate On Scroll
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('glass', 'shadow-lg');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-2');
+            } else {
+                navbar.classList.remove('glass', 'shadow-lg', 'py-2');
+                navbar.classList.add('py-4');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        // Note: Full mobile menu overlay logic would go here for a production site.
+        // For this single-file demo, we keep it simple or add a basic alert/toggle.
+        menuBtn.addEventListener('click', () => {
+             alert("Mobile menu would expand here. (Simplified for single-file demo)");
+        });
+    </script>
+</body>
+</html>
