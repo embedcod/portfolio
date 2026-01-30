@@ -2,47 +2,309 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects | Eric Mulwa</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent: #0891b2;
+            --accent-light: #ecfeff;
+            --max-width: 1300px;
+            --border-color: rgba(15, 23, 42, 0.1);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+
+        /* --- Navigation --- */
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.8rem 0;
+            position: sticky;
+            top: 0;
+            background: rgba(248, 250, 252, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1500px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-right: 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+        .social-icons { display: flex; align-items: center; gap: 2.2rem; }
+        .social-icons img { width: 22px; height: 22px; transition: var(--transition); opacity: 0.9; }
+        .social-icons a:hover img { transform: translateY(-3px); opacity: 1; }
+
+        /* --- Projects Page Layout --- */
+        .container { 
+            max-width: var(--max-width); 
+            margin: 0 auto; 
+            padding: 3rem 2rem; 
+        }
+
+        .page-header {
+            margin-bottom: 4rem;
+            border-left: 3px solid var(--accent);
+            padding-left: 1.5rem;
+        }
+
+        .tag { 
+            color: var(--accent); 
+            font-family: 'IBM Plex Mono', monospace; 
+            font-size: 0.85rem; 
+            letter-spacing: 2px; 
+            font-weight: 700; 
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-primary); }
+
+        .intro-statement {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 1300px;
+            line-height: 1.8;
+        }
+
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 3.5rem;
+        }
+
+        /* Vertical Project Card Style */
+        .project-card-vertical {
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .project-card-vertical:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
+        }
+
+        .project-visual {
+            height: 320px;
+            background: #e2e8f0;
+            overflow: hidden;
+        }
+
+        .project-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-details {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .project-details h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .project-details p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .btn-full-project {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .btn-full-project:hover { gap: 15px; }
+
+        /* --- Footer Statement --- */
+        .page-footer {
+            margin-top: 6rem;
+            padding: 4rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .closing-statement {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        @media (max-width: 900px) {
+            .project-card-vertical { grid-template-columns: 1fr; }
+            .project-visual { height: 250px; }
+            h1 { font-size: 2.2rem; }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Engineering Portfolio</h1>
-        <p>A record of production-grade systems and technical leadership.</p>
 
-        <h2 style="margin-top: 3rem;">Production Systems</h2>
-        <div class="project-grid">
-            <div class="project-card">
-                <p class="tag">IOT / COLD CHAIN</p>
-                <h3>Safaricom Cold Chain</h3>
-                <p>Lead Engineer for remote environmental monitoring via BLE/HTTPS/WiFi.</p>
-                <a href="projects/safaricom-cold-chain.html" style="color:var(--accent); text-decoration:none; font-size:0.9rem;">View Case Study &rarr;</a>
+    <header>
+        <nav class="nav-container">
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="projects.html" class="active">Projects</a>
+                <a href="skills.html">Skills</a>
+                <a href="leadership.html">Leadership</a>
+                <a href="resume.html">Resume</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/eric-mulwa-a59509233" target="_blank"><img src="assets/social_media/lin.png" alt="LinkedIn"></a>
+                <a href="https://wa.me/254796456877" target="_blank"><img src="assets/social_media/wapp.png" alt="WhatsApp"></a>
+                <a href="https://www.instagram.com/embedcod?igsh=emdydG0xc2c4dWJp" target="_blank"><img src="assets/social_media/ig.png" alt="Instagram"></a>
+                <a href="mailto:ericmulwa@geviton.co.ke"><img src="assets/social_media/gmail.png" alt="Email"></a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <span class="tag">ENGINEERING LOG // PROJECTS</span>
+            <h1>Featured Full-scale Embedded System Projects</h1>
+            <p class="intro-statement">
+                Over the years, I have delivered a range of engineering projects starting from prototypes and MVPs to Design for 
+                Manufacturing (DFM). As the lead senior engineer, I oversee the complete product lifecycle, including firmware development, 
+                hardware design, assembly, and deployment. Listed below, please find the said projects for your review.
+            </p>
+        </div>
+
+        <div class="project-list">
+            <div class="project-card-vertical">
+                <div class="project-visual">
+                    <img src="assets/projects/hewasense.png" alt="HewaSense">
+                </div>
+                <div class="project-details">
+                    <h3>HewaSense Project</h3>
+                    <p>A sophisticated environmental monitoring system designed specifically for modern office environments. This IoT-enabled hardware protects occupants from hazardous gaseous compounds by utilizing high-precision sensors and real-time data pipelines to ensure air quality standards are met at all times.</p>
+                    <a href="projects/hewasense.html" class="btn-full-project">See Full Project &rarr;</a>
+                </div>
             </div>
 
-            <div class="project-card">
-                <p class="tag">INDUSTRIAL HMI</p>
-                <h3>Agha Khan HMI</h3>
-                <p>Digital solution for differential pressure monitoring in operating theatres.</p>
-                <a href="#" style="color:var(--accent); text-decoration:none; font-size:0.9rem;">View Case Study &rarr;</a>
+            <div class="project-card-vertical">
+                <div class="project-visual">
+                    <img src="assets/projects/coldchain.png" alt="Safaricom Cold Chain">
+                </div>
+                <div class="project-details">
+                    <h3>Safaricom Cold Chain Project</h3>
+                    <p>An advanced industrial IoT solution leveraging BLE, HTTPS, and WiFi connectivity. This system provides critical, real-time environmental monitoring for cold chain logistics, ensuring the integrity of temperature-sensitive goods during transit through remote telemetry and automated alerting.</p>
+                    <a href="projects/cold-chain.html" class="btn-full-project">See Full Project &rarr;</a>
+                </div>
             </div>
 
-            <div class="project-card">
-                <p class="tag">ENERGY / GATEWAY</p>
-                <h3>Songa Hub Station</h3>
-                <p>RS-485 to MQTT Gateway managing 30+ CAN-based battery swap nodes.</p>
-                <a href="#" style="color:var(--accent); text-decoration:none; font-size:0.9rem;">View Case Study &rarr;</a>
+            <div class="project-card-vertical">
+                <div class="project-visual">
+                    <img src="assets/projects/hmi.png" alt="Agha Khan HMI">
+                </div>
+                <div class="project-details">
+                    <h3>Agha Khan HMI Project</h3>
+                    <p>A custom Human-Machine Interface (HMI) designed for clinical excellence. This digital solution monitors Differential Pressure across hospital operating theatres, providing medical staff with instant visual feedback and data logging to maintain sterile, safe environments.</p>
+                    <a href="projects/agha-khan.html" class="btn-full-project">See Full Project &rarr;</a>
+                </div>
+            </div>
+
+            <div class="project-card-vertical">
+                <div class="project-visual">
+                    <img src="assets/projects/beehappy.png" alt="BeeHappy">
+                </div>
+                <div class="project-details">
+                    <h3>BeeHappy IoT Project</h3>
+                    <p>Merging apiculture with technology, the BeeHappy solution tracks hive weight, temperature, and humidity. This precision agriculture tool helps beekeepers optimize honey production and monitor colony health through automated data collection and analysis.</p>
+                    <a href="projects/beehappy.html" class="btn-full-project">See Full Project &rarr;</a>
+                </div>
+            </div>
+
+            <div class="project-card-vertical">
+                <div class="project-visual">
+                    <img src="assets/projects/openhap.png" alt="OpenHAP">
+                </div>
+                <div class="project-details">
+                    <h3>OpenHAP AQM Project</h3>
+                    <p>An indoor air quality monitor (AQM) focused on safety. OpenHAP detects carbon monoxide and other hazardous gases, bridging the gap between firmware and robust hardware to provide a reliable early-warning system for residential and commercial spaces.</p>
+                    <a href="projects/openhap.html" class="btn-full-project">See Full Project &rarr;</a>
+                </div>
+            </div>
+
+            <div class="project-card-vertical">
+                <div class="project-visual">
+                    <img src="assets/projects/etalking.png" alt="E-talking Stick">
+                </div>
+                <div class="project-details">
+                    <h3>E-talking Stick Project</h3>
+                    <p>A specialized Bluetooth-enabled microphone system designed for the US market. Integrated with AI meeting tools, this hardware features automatic timing capabilities and high-fidelity audio capture to streamline professional digital communication.</p>
+                    <a href="projects/etalking.html" class="btn-full-project">See Full Project &rarr;</a>
+                </div>
+            </div>
+
+            <div class="project-card-vertical">
+                <div class="project-visual">
+                    <img src="assets/projects/hub.png" alt="Songa Hub">
+                </div>
+                <div class="project-details">
+                    <h3>Songa Hub Station Project</h3>
+                    <p>A powerful central gateway for electric vehicle infrastructure. Capable of managing up to 30 nodes via RS-485 and CAN bus communication, this MQTT-based station optimizes battery swapping operations for electric trike fleets.</p>
+                    <a href="projects/songa-hub.html" class="btn-full-project">See Full Project &rarr;</a>
+                </div>
             </div>
         </div>
 
-        <h2 style="margin-top: 3rem;">Research & Prototypes</h2>
-        <div class="project-grid">
-            <div class="project-card">
-                <p class="tag">AGRITECH</p>
-                <h3>BeeHappy IoT</h3>
-                <p>Smart hive monitoring for weight, humidity, and temperature.</p>
-                <a href="#" style="color:var(--accent); text-decoration:none; font-size:0.9rem;">View Case Study &rarr;</a>
-            </div>
-        </div>
-    </div>
+        <footer class="page-footer">
+            <p class="closing-statement">
+                My embedded engineering journey continues, and I look forward to sharing even more compelling and technically ambitious projects in the future.
+            </p>
+        </footer>
+    </main>
+
 </body>
 </html>
