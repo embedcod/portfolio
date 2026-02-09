@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenHAP | Project Detail</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent: #0891b2;
+            --accent-soft: #ecfeff;
+            --border-color: rgba(15, 23, 42, 0.1);
+            --max-width: 1300px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 2; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+        }
+
+        /* --- Navigation --- */
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.8rem 0;
+            position: sticky;
+            top: 0;
+            background: rgba(248, 250, 252, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-right: 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+        .social-icons { display: flex; align-items: center; gap: 2.2rem; }
+        .social-icons img { width: 22px; height: 22px; transition: var(--transition); opacity: 0.9; }
+        .social-icons a:hover img { transform: translateY(-3px); opacity: 1; }
+
+        /* --- Hero Section --- */
+        .hero-project {
+            background: white;
+            padding: 1rem 0; /* Reduced from 5rem */
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .content-wrap {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .tag-mono {
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        h1 { font-size: 3rem; font-weight: 800; line-height: 1.2; margin-bottom: 1.5rem; color: var(--text-primary); }
+        .hero-summary { font-size: 1.1rem; color: var(--text-secondary); max-width: 1200px; margin-bottom: 2rem; }
+
+        /* --- Snapshot Grid --- */
+        .snapshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            background: white;
+            padding: 0.8rem;
+            border-radius: 18px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        .snap-item span { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--accent); font-weight: 700; text-transform: uppercase; margin-bottom: 0.2rem;}
+        .snap-item p { font-weight: 600; font-size: 0.8rem; color: var(--text-primary); }
+
+        /* --- Technical Sections (Two Column Layout) --- */
+        .detail-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            padding: 1.5rem 0;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Alternate the order for visual flow */
+        .detail-section.reverse { direction: rtl; }
+        .detail-section.reverse .text-block { direction: ltr; }
+        .detail-section.reverse .image-block { direction: ltr; }
+
+        .text-block h2 { font-size: 1.8rem; margin-bottom: 1.2rem; position: relative; }
+        .text-block h2::after { content: ''; position: absolute; left: 0; bottom: -5px; width: 40px; height: 3px; background: var(--accent); }
+        
+        .text-block p { margin-bottom: 1rem; color: var(--text-secondary); }
+        
+        .tech-list { list-style: none; margin: 1.5rem 0; }
+        .tech-list li { 
+            position: relative; 
+            padding-left: 1.5rem; 
+            margin-bottom: 0.5rem; 
+            font-size: 0.9rem; 
+            color: var(--text-primary); 
+            font-weight: 500;
+        }
+        .tech-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-weight: bold; }
+
+        .image-block { position: relative; }
+        .image-block img { 
+            width: 100%; 
+            max-height: 450px; 
+            object-fit: contain; 
+            border-radius: 12px; 
+            background: white;
+            padding: 5px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+        .image-caption { 
+            text-align: center; 
+            margin-top: 1rem; 
+            font-size: 0.8rem; 
+            color: var(--text-secondary); 
+            font-style: italic; 
+        }
+
+        /* --- Full Width Outcome Section --- */
+        .outcome-section {
+            padding: 4rem 0;
+            background: var(--accent-soft);
+            border-radius: 20px;
+            margin: 4rem 0;
+            text-align: center;
+        }
+        .outcome-section h2 { margin-bottom: 1.5rem; border: none; }
+        .outcome-wrap { max-width: 800px; margin: 0 auto; }
+
+        .back-nav {
+            display: flex;
+            justify-content: center;
+            padding: 4rem 0;
+        }
+        .btn-back {
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+        .btn-back:hover { transform: translateX(-5px); }
+
+        footer { padding: 3rem 0; text-align: center; border-top: 1px solid var(--border-color); color: var(--text-secondary); font-size: 0.85rem; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .detail-section, .detail-section.reverse { grid-template-columns: 1fr; gap: 2rem; direction: ltr; }
+            h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../projects.html" class="active">Projects</a>
+                <a href="../skills.html">Skills</a>
+                <a href="../leadership.html">Leadership</a>
+                <a href="../resume.html">Resume</a>
+                <a href="../contact.html">Contact</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/eric-mulwa-a59509233" target="_blank"><img src="../assets/social_media/lin.png" alt="LinkedIn"></a>
+                <a href="https://wa.me/254796456877" target="_blank"><img src="../assets/social_media/wapp.png" alt="WhatsApp"></a>
+                <a href="https://www.instagram.com/embedcod?igsh=emdydG0xc2c4dWJp" target="_blank"><img src="../assets/social_media/ig.png" alt="Instagram"></a>
+                <a href="mailto:ericmulwa@geviton.co.ke"><img src="../assets/social_media/gmail.png" alt="Email"></a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="project-hero">
+            <div class="content-wrap">
+                <h1>OpenHAP: Indoor Air Quality Monitoring Solution</h1>
+                <p class="hero-summary">
+
+                    OpenHAP is an Air Quality Monitoring (AQM) device designed for indoor household environments. 
+                    It continuously monitors exposure to airborne pollutants, including:
+                    Carbon Monoxide (CO) levels in Parts Per Billion (PPB),
+                    Particulate Matter 2.5 (PM2.5), and Ambient Temperature & Humidity. The device also facilitates 
+                    non-invasive monitoring of human habits and actions that may contribute to pollution without requiring 
+                    direct questioning, which may be sensitive in certain cultural settings.
+                </p>
+                
+                <div class="snapshot-grid">
+                    <div class="snap-item"><span>System Type</span><p>AQM Device</p></div>
+                    <div class="snap-item"><span>Connectivity</span><p>GSM/ WiFi / BLE</p></div>
+                    <div class="snap-item"><span>Sensors</span><p>Wired & BLE</p></div>
+                    <div class="snap-item"><span>My Role</span><p>Lead Design Engineer</p></div>
+                    <div class="snap-item"><span>Timeline</span><p>Prototype to DFM</p></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="content-wrap">
+            <section class="detail-section">
+                <div class="text-block">
+                    <h2>The Challenge</h2>
+                    <p> Indoor pollutants such as Carbon Monoxide and fine particulate matter pose serious 
+                        health risks, yet existing monitoring solutions are either prohibitively expensive or fail to operate reliably in 
+                        real-world conditions. OpenHAP solves this problem by delivering high-accuracy environmental telemetry by 
+                        integrating laboratory-grade gas sensing, pm monitoring, and ambient conditions measurement into a single, 
+                        deployable system.                       
+                    </p>
+                    <ul class="tech-list">
+                        <li> <strong>Accuracy:</strong> Resolving noise limitations in MCU ADC measurements.</li>
+                        <li> <strong>Reliability:</strong> Maintaining 100% telemetry uptime in "offline" environments.</li>
+                        <li> <strong>Low Power:</strong> Achieving low power functionality on a battery powered device.</li>
+                        <li> <strong>Compact:</strong> Compact system design for userbility and portability.</li>
+                    </ul>
+                </div>
+                <div class="image-block">
+                    <img src="project_images/openhap/openhap_complete.png" alt="OpenHAP Device">
+                    <p class="image-caption">The production-ready OpenHAP device and its accessories.</p>
+                </div>
+            </section>
+
+            <section class="detail-section reverse">
+                <div class="text-block">
+                    <h2>Hardware Architecture</h2>
+                    <p> 
+                        Designed on a high-signal-integrity multilayer PCB, Openhap hardware is
+                        carefully engineered to ensure reliable operation in electrically noisy and 
+                        industrial environments. Particular attention was given to domain separation, 
+                        grounding strategy, and power integrity to support precision sensing alongside 
+                        high-speed digital and RF communication.
+                    </p>
+                    <p>
+                        The design was implemented in <strong>KiCad</strong> and represents a 
+                        <strong>first-iteration hardware release</strong> that achieved full functional 
+                        success without board re-spins, validating the simulation, layout discipline, 
+                        and component selection strategy applied throughout the design process.
+                    </p>
+
+                    <ul class="tech-list">
+                        <li>
+                            <strong>SPI:</strong> Dedicated high-speed bus for the AD5941 Analog Front End 
+                            and SD card data logging, with controlled impedance routing and local decoupling 
+                            to preserve signal integrity.
+                        </li>
+                        <li>
+                            <strong>I2C:</strong> Low-speed sensor cluster interface for Sensirion SPS30 (PM), SHT30 (T&H), 
+                            DS3231 RTC, and PCF8574DW GPIO Expander, isolated from noisy domains to 
+                            maintain measurement accuracy.
+                        </li>
+                        <li>
+                            <strong>UART:</strong> High-baud-rate (115200) communication channel to the 
+                            Quectel EG915N cellular module, optimized for reliable data throughput and 
+                            low-latency cloud connectivity.
+                        </li>
+                        <li>
+                            <strong>Power Architecture:</strong> Multi-rail power distribution with 
+                            localized regulation and filtering, separating analog, digital, and RF 
+                            supplies to minimize cross-domain interference.
+                        </li>
+                        <li>
+                            <strong>RF & EMC Design:</strong> Optimized grounding, controlled return paths, 
+                            and strategic component placement to support stable cellular performance and 
+                            EMC robustness.
+                        </li>
+                    </ul>
+
+
+                </div>
+                <div class="image-block">
+                    <img src="project_images/openhap/openhap_pcb.png" alt="PCB Layout">
+                    <img src="project_images/openhap/openhap_back.png" alt="PCB Layout">
+                    <p class="image-caption">Multilayer PCB layout designed in KiCad, featuring optimized RF grounding, 
+            controlled power domains, and first-pass functional success.</p>
+
+                </div>
+            </section>            
+
+            <section class="detail-section">
+                <div class="text-block">
+                    <h2>Firmware Architecture</h2>
+                    <p>
+                        The OpenHAP firmware is developed using the <strong>Espressif ESP-IDF framework</strong> 
+                        in <strong>C</strong> and is architected around a deterministic, event-driven 
+                        <strong>Finite State Machine (FSM)</strong>. This design ensures predictable system 
+                        behavior, robust fault handling, and smooth operational transitions without blocking 
+                        or deadlocks.
+                    </p>
+
+                    <ul class="tech-list">
+                        <li>
+                            <strong>State Machine Control:</strong> Clearly defined states for deterministic execution.
+                        </li>
+                        <li>
+                            <strong>Event-Driven Behavior:</strong> Interrupt triggered transitions for responsive system control with minimal 
+                            CPU overhead.
+                        </li>
+                        <li>
+                            <strong>Multi-Interface Sensor Integration:</strong> Seamless acquisition of data 
+                            from both wired sensors and BLE peripherals, unified into a single telemetry pipeline.
+                        </li>
+                        <li>
+                            <strong>Local Data Persistence:</strong> CSV-based data logging to an SD card to 
+                            guarantee data retention during network outages or power interruptions.
+                        </li>
+                        <li>
+                            <strong>Network Resilience:</strong> Primary data transmission over Wi-Fi with 
+                            automatic fallback to GSM cellular connectivity to ensure continuous uplink availability.
+                        </li>
+                    </ul>
+                </div>
+                <div class="image-block">
+                    <img src="project_images/openhap/openhap_firmware.png" alt="OpenHAP Firmware State Machine">
+                    <p class="image-caption">
+                        Event-driven finite state machine architecture implemented using ESP-IDF, 
+                        coordinating sensor acquisition, data logging, and resilient network communication.
+                    </p>
+                </div>
+            </section>
+
+
+            <section class="detail-section reverse">
+                <div class="text-block">
+                    <h2>IoT Design Architecture</h2>
+                    <p>
+                        The OpenHAP system is designed as a resilient, end-to-end IoT architecture that 
+                        bridges edge sensing, reliable data transport, cloud-based analytics, and intuitive 
+                        visualization. At the core of the system is the OpenHAP device, which continuously 
+                        acquires environmental and operational data and securely publishes telemetry to the 
+                        <strong>ThingsBoard Open Source IoT platform</strong>.
+                    </p>
+                    <p>
+                        On the cloud side, ThingsBoard hosts a sleek, interactive dashboard that enables 
+                        real-time monitoring, historical trend visualization, and data-driven insights. 
+                        The platform performs aggregation, analysis, and rule-based inference on incoming 
+                        telemetry, enabling actionable visibility into device behavior and environmental conditions.
+                    </p>
+                    <p>
+                        Connectivity is designed with redundancy in mind. The device primarily connects 
+                        over secure Wi-Fi and automatically falls back to GSM cellular connectivity when 
+                        Wi-Fi is unavailable, ensuring continuous data delivery. In scenarios where external 
+                        network connectivity is completely unavailable, the device exposes a local 
+                        <strong>WebSocket-based dashboard</strong>, providing real-time access to live data 
+                        directly from the edge device.
+                    </p>
+
+                    <ul class="tech-list">
+                        <li>
+                            <strong>Cloud Platform:</strong> ThingsBoard Open Source IoT platform.
+                        </li>
+                        <li>
+                            <strong>Secure Communication:</strong> Encrypted HTTPs over SSL/TLS for both 
+                            Wi-Fi and GSM connections.
+                        </li>
+                        <li>
+                            <strong>Network Resilience:</strong> Automatic failover between Wi-Fi and GSM.
+                        </li>
+                        <li>
+                            <strong>Local Access Mode:</strong> Button-triggered interrupt WebSocket interface Access.
+                        </li>
+                    </ul>
+                </div>
+                <div class="image-block">
+                    <img src="project_images/openhap/openhap_thingsboard_dashboard.png" alt="ThingsBoard Dashboard">
+                    <img src="project_images/openhap/openhap_websocket_dashboard.png" alt="Local WebSocket Dashboard">
+                    <p class="image-caption">
+                        Cloud-based ThingsBoard dashboard for remote monitoring and analytics (top), 
+                        and local WebSocket dashboard providing real-time data visualization directly 
+                        from the OpenHAP device during offline operation (bottom).
+                    </p>
+                </div>
+            </section>
+                
+
+<div class="outcome-section">
+    <div class="outcome-wrap">
+        <span class="tag-mono">Results</span>
+        <h2>Engineering Impact</h2>
+        <p>
+            The OpenHAP system progressed beyond laboratory validation into a real-world, 
+            large-scale deployment. Commissioned by 
+            <strong>
+                <a href="https://eedadvisory.com/" target="_blank" rel="noopener noreferrer">
+                    EED Advisory
+                </a>
+            </strong>, the device 
+            was deployed in <strong>Namibia</strong> as part of a research exercise sanctioned 
+            by the <strong>United Nations</strong>, focused on assessing the risks posed by 
+            traditional cooking jikos to human health.
+        </p>
+        <p>
+            A total of <strong>25 OpenHAP devices</strong> were installed across multiple rural 
+            households to continuously monitor carbon monoxide exposure associated with 
+            three-stone jiko cooking practices. The collected data was used to analyze exposure 
+            trends and contribute to determining mortality risks linked to prolonged carbon 
+            monoxide inhalation in underserved communities.
+        </p>
+        <p>
+            From an engineering perspective, the project provided end-to-end experience 
+            spanning rapid prototyping, hardware and firmware iteration, design for 
+            manufacturing (DFM), regulatory certification, and post-deployment technical 
+            support. All devices were <strong>certified by KEBS</strong> prior to shipment, 
+            ensuring compliance with applicable safety and quality standards.
+        </p>
+        <p>
+            Deployment and operational support were conducted remotely, with engineering 
+            coordination carried out from Kenya while the field deployment occurred in 
+            Namibia. The system operated reliably throughout the study period, and the 
+            project successfully met its intended research objectives, validating both the 
+            technical design and the overall system architecture.
+        </p>
+        <p>
+            This project marked a significant milestone in my development as an engineering leader. 
+            I took responsibility for translating research objectives into a reliable, manufacturable 
+            engineering solution, making informed trade-offs between performance, cost, compliance, 
+            and deployment constraints. Through this project, I strengthened my ability to lead by technical clarity, make 
+            data-driven design decisions, and deliver robust systems under real-world constraints. 
+        </p>
+
+
+    </div>
+</div>
+
+            <nav class="back-nav">
+                <a href="../projects.html" class="btn-back">← Back to All Engineering Projects</a>
+            </nav>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Eric Mulwa. Engineered for Precision & Sustainability.</p>
+    </footer>
+
+</body>
+</html>
