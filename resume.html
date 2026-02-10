@@ -65,16 +65,24 @@
         .social-icons img { width: 22px; height: 22px; transition: var(--transition); opacity: 0.9; }
         .social-icons a:hover img { transform: translateY(-3px); opacity: 1; }
 
-        /* --- Hamburger Menu Button (Hidden on Desktop) --- */
+
+
+
+
+        /* --- CSS-ONLY TOGGLE (The Secret Sauce) --- */
+        #menu-checkbox {
+            display: none; /* Hide the actual checkbox */
+        }
+
         .menu-toggle {
-            display: none;
+            display: none; /* Hidden on desktop */
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
-            border: none;
-            background: #f1f5f9; /* Light background like the sample */
-            padding: 8px;
-            border-radius: 6px;
+            background: #f1f5f9;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
         }
 
         .menu-toggle span {
@@ -84,28 +92,25 @@
             border-radius: 2px;
         }
 
-        /* --- Resume Layout --- */
-        .container { 
-            max-width: 800px; 
-            margin: auto; 
-            padding: 2rem 2rem; 
-            text-align: center;
-            flex: 1; /* Pushes footer to bottom */
-        }
-        
-        .page-header { margin-bottom: 3rem; }
-        .tag { 
-            color: var(--accent); 
-            font-family: 'IBM Plex Mono', monospace; 
-            font-size: 0.8rem; 
-            letter-spacing: 3px; 
-            font-weight: 700; 
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-right: 1.5rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
-            margin-bottom: 1rem;
-            display: block;
+            letter-spacing: 1.2px;
+            font-weight: 600;
+            transition: var(--transition);
         }
-        h1 { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; }
-        p { color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem; }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+        .social-icons { display: flex; align-items: center; gap: 2.2rem; }
+        .social-icons img { width: 22px; height: 22px; transition: var(--transition); opacity: 0.9; }
+        .social-icons a:hover img { transform: translateY(-3px); opacity: 1; }
+
+
+
 
         /* --- Resume Preview Card --- */
         .resume-card {
@@ -180,42 +185,37 @@
 
         /* --- RESPONSIVE MOBILE STYLES --- */
         @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            
-            /* Hide icons and desktop links container */
             .social-icons { display: none; }
-            
-            /* Show hamburger on mobile */
             .menu-toggle { display: flex; }
 
             .nav-links {
                 display: none; /* Hidden by default */
                 position: absolute;
-                top: 100%; /* Sits right below header */
+                top: 100%;
                 left: 0;
                 width: 100%;
                 background: white;
                 flex-direction: column;
-                padding: 1rem 0;
                 border-top: 1px solid var(--border-color);
                 box-shadow: 0 10px 15px rgba(0,0,0,0.1);
             }
 
-            /* This class is added via JavaScript when clicked */
-            .nav-links.active {
+            /* MAGIC PART: When checkbox is checked, show the nav-links */
+            #menu-checkbox:checked ~ .nav-links {
                 display: flex;
             }
 
             .nav-links a {
                 margin: 0;
-                padding: 1.2rem 2rem; /* Comfortable tapping area */
+                padding: 1.2rem 2rem;
                 width: 100%;
                 border-bottom: 1px solid #f1f5f9;
-                font-size: 0.9rem;
             }
-            
-            .nav-links a:last-child { border-bottom: none; }
         }
+
+
+
+
 
     </style>
 </head>
@@ -260,22 +260,6 @@
     <footer>
         <p>&copy; 2026 Eric Mulwa. Engineer at Craft & Precision.</p>
     </footer>
-
-    <script>
-        // Ensure JavaScript waits for the DOM to be ready
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuToggle = document.getElementById('mobile-menu');
-            const navList = document.getElementById('nav-list');
-
-            if (menuToggle && navList) {
-                menuToggle.addEventListener('click', () => {
-                    // This toggles the 'active' class which sets display: flex on mobile
-                    navList.classList.toggle('active');
-                });
-            }
-        });
-    </script>
-
 
 </body>
 </html>
