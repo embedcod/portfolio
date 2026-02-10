@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume | Eric Mulwa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent: #0891b2;
+            --accent-soft: #ecfeff;
+            --border-color: rgba(15, 23, 42, 0.1);
+            --max-width: 1400px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+        }
+
+        /* --- Navigation --- */
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.8rem 0;
+            position: sticky;
+            top: 0;
+            background: rgba(248, 250, 252, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-right: 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+        .social-icons { display: flex; align-items: center; gap: 2.2rem; }
+        .social-icons img { width: 22px; height: 22px; transition: var(--transition); opacity: 0.9; }
+        .social-icons a:hover img { transform: translateY(-3px); opacity: 1; }
+
+        /* --- Resume Layout --- */
+        .container { 
+            max-width: 800px; 
+            margin: auto; 
+            padding: 2rem 2rem; 
+            text-align: center;
+            flex: 1; /* Pushes footer to bottom */
+        }
+        
+        .page-header { margin-bottom: 3rem; }
+        .tag { 
+            color: var(--accent); 
+            font-family: 'IBM Plex Mono', monospace; 
+            font-size: 0.8rem; 
+            letter-spacing: 3px; 
+            font-weight: 700; 
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        h1 { font-size: 3rem; font-weight: 800; margin-bottom: 1rem; }
+        p { color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem; }
+
+        /* --- Resume Preview Card --- */
+        .resume-card {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            max-width: 600px;
+            margin: 0 auto;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .resume-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 30px 60px rgba(8, 145, 178, 0.15);
+        }
+
+        .resume-thumbnail {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #f1f5f9;
+            display: block;
+            margin-bottom: 2rem;
+        }
+
+        /* --- Download Button --- */
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--accent);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(8, 145, 178, 0.3);
+        }
+
+        .btn-download:hover {
+            background: #0e7490;
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(8, 145, 178, 0.4);
+        }
+
+        .btn-download svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* --- Footer --- */
+        footer { 
+            padding: 3rem 0; 
+            text-align: center; 
+            border-top: 1px solid var(--border-color); 
+            color: var(--text-secondary); 
+            font-size: 0.85rem; 
+            background: white;
+            margin-top: 4rem;
+        }
+
+        /* --- Mobile Navigation & Animations --- */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            /*background: #0e7490;*/
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 10px;
+            transition: var(--transition);
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 2px;
+            /*background: var(--text-primary);*/
+            background: #1ca3c8;
+            display: block;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+        }
+
+        /* Button Animation: Transforms hamburger to X */
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Mobile behavior */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                padding: 0.5rem 1.5rem;
+            }
+
+            .nav-links {
+                width: 100%;
+                display: flex; /* Always flex, but hidden via height/opacity */
+                flex-direction: column;
+                align-items: flex-start; 
+                text-align: left; 
+                
+                /* Animation properties */
+                max-height: 0;
+                opacity: 0;
+                overflow: hidden;
+                visibility: hidden;
+                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                transform: translateY(-10px);
+            }
+
+            .nav-links.show {
+                max-height: 500px; /* Large enough to fit all links */
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+                padding: 1.5rem 0;
+                border-top: 1px solid var(--border-color);
+            }
+
+            .nav-links a {
+                margin: 0;
+                padding: 1rem 0;
+                font-size: 1rem;
+                width: 100%;
+                letter-spacing: 2px;
+                opacity: 0;
+                transition: opacity 0.4s ease;
+            }
+
+            .nav-links.show a {
+                opacity: 1;
+            }
+
+            .social-icons {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<!-- html -->
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <!-- Mobile Menu Button -->
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>            
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="projects.html">Projects</a>
+                <a href="skills.html">Skills</a>
+                <a href="leadership.html">Leadership</a>
+                <a href="resume.html" class="active">Resume</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/eric-mulwa-a59509233" target="_blank"><img src="assets/social_media/lin.png" alt="LinkedIn"></a>
+                <a href="https://wa.me/254796456877" target="_blank"><img src="assets/social_media/wapp.png" alt="WhatsApp"></a>
+                <a href="https://www.instagram.com/embedcod?igsh=emdydG0xc2c4dWJp" target="_blank"><img src="assets/social_media/ig.png" alt="Instagram"></a>
+                <a href="mailto:ericmulwa@geviton.co.ke"><img src="assets/social_media/gmail.png" alt="Email"></a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Curriculum Vitae</h1>
+            <p>Download my resume to review my embedded hardware engineering experience</p>
+        </div>
+
+        <div class="resume-card">
+            <img src="assets/images/resume3.png" alt="Eric Mulwa Resume Thumbnail" class="resume-thumbnail">
+            
+            <!-- TODO: Update the resume, upload to drive and add the link here -->
+            <a href="https://drive.google.com/file/d/1acEU2nQfXwFeUPqcYXte64MT_7ckTbXg/view?usp=sharing" class="btn-download" download>
+                <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                Download PDF Resume
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Eric Mulwa. Engineer at Craft & Precision.</p>
+    </footer>
+
+    <!-- js script -->
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            // Toggle the X animation on the button
+            menuToggle.classList.toggle('active');
+            // Toggle the dropdown visibility
+            navLinks.classList.toggle('show');
+        });
+
+        // Close menu when a link is clicked (useful for one-page navigation)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('show');
+            });
+        });
+    </script>
+</body>
+</html>
