@@ -65,23 +65,23 @@
         .social-icons img { width: 22px; height: 22px; transition: var(--transition); opacity: 0.9; }
         .social-icons a:hover img { transform: translateY(-3px); opacity: 1; }
 
-        /* --- NEW: Hamburger Menu Styles --- */
+        /* --- Hamburger Menu Button (Hidden on Desktop) --- */
         .menu-toggle {
             display: none;
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
             border: none;
-            background: none;
-            padding: 5px;
+            background: #f1f5f9; /* Light background like the sample */
+            padding: 8px;
+            border-radius: 6px;
         }
 
         .menu-toggle span {
             width: 25px;
             height: 3px;
-            background-color: var(--text-primary);
+            background-color: var(--accent);
             border-radius: 2px;
-            transition: var(--transition);
         }
 
         /* --- Resume Layout --- */
@@ -181,32 +181,37 @@
         /* --- RESPONSIVE MOBILE STYLES --- */
         @media (max-width: 768px) {
             h1 { font-size: 2.2rem; }
-            .resume-card { padding: 10px; }
-
-            .social-icons { display: none; } /* Hide icons as requested */
             
-            .menu-toggle { display: flex; } /* Show hamburger */
+            /* Hide icons and desktop links container */
+            .social-icons { display: none; }
+            
+            /* Show hamburger on mobile */
+            .menu-toggle { display: flex; }
 
             .nav-links {
-                display: none; /* Hide links by default on mobile */
+                display: none; /* Hidden by default */
                 position: absolute;
-                top: 100%;
+                top: 100%; /* Sits right below header */
                 left: 0;
                 width: 100%;
                 background: white;
                 flex-direction: column;
                 padding: 1rem 0;
-                border-bottom: 1px solid var(--border-color);
-                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+                border-top: 1px solid var(--border-color);
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
             }
 
-            .nav-links.active { display: flex; } /* Show when toggled */
+            /* This class is added via JavaScript when clicked */
+            .nav-links.active {
+                display: flex;
+            }
 
             .nav-links a {
                 margin: 0;
-                padding: 1rem 2rem;
+                padding: 1.2rem 2rem; /* Comfortable tapping area */
                 width: 100%;
                 border-bottom: 1px solid #f1f5f9;
+                font-size: 0.9rem;
             }
             
             .nav-links a:last-child { border-bottom: none; }
@@ -257,11 +262,17 @@
     </footer>
 
     <script>
-        const menuToggle = document.getElementById('mobile-menu');
-        const navList = document.getElementById('nav-list');
+        // Ensure JavaScript waits for the DOM to be ready
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.getElementById('mobile-menu');
+            const navList = document.getElementById('nav-list');
 
-        menuToggle.addEventListener('click', () => {
-            navList.classList.toggle('active');
+            if (menuToggle && navList) {
+                menuToggle.addEventListener('click', () => {
+                    // This toggles the 'active' class which sets display: flex on mobile
+                    navList.classList.toggle('active');
+                });
+            }
         });
     </script>
 
