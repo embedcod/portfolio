@@ -65,53 +65,6 @@
         .social-icons img { width: 22px; height: 22px; transition: var(--transition); opacity: 0.9; }
         .social-icons a:hover img { transform: translateY(-3px); opacity: 1; }
 
-
-
-
-
-        /* --- CSS-ONLY TOGGLE (The Secret Sauce) --- */
-        #menu-checkbox {
-            display: none; /* Hide the actual checkbox */
-        }
-
-        .menu-toggle {
-            display: none; /* Hidden on desktop */
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            background: #f1f5f9;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background-color: var(--accent);
-            border-radius: 2px;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin-right: 1.5rem;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
-
-        .social-icons { display: flex; align-items: center; gap: 2.2rem; }
-        .social-icons img { width: 22px; height: 22px; transition: var(--transition); opacity: 0.9; }
-        .social-icons a:hover img { transform: translateY(-3px); opacity: 1; }
-
-
-
-
         /* --- Resume Preview Card --- */
         .resume-card {
             background: white;
@@ -183,36 +136,61 @@
             .resume-card { padding: 10px; }
         }*/
 
-        /* --- RESPONSIVE MOBILE STYLES --- */
-        @media (max-width: 768px) {
-            .social-icons { display: none; }
-            .menu-toggle { display: flex; }
 
-            .nav-links {
-                display: none; /* Hidden by default */
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: white;
-                flex-direction: column;
-                border-top: 1px solid var(--border-color);
-                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-            }
 
-            /* MAGIC PART: When checkbox is checked, show the nav-links */
-            #menu-checkbox:checked ~ .nav-links {
-                display: flex;
-            }
 
-            .nav-links a {
-                margin: 0;
-                padding: 1.2rem 2rem;
-                width: 100%;
-                border-bottom: 1px solid #f1f5f9;
-            }
-        }
 
+
+
+
+/* --- Mobile Navigation --- */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    width: 25px;
+    height: 2px;
+    background: var(--text-primary);
+}
+
+/* Mobile behavior */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-container {
+        flex-wrap: wrap;
+    }
+
+    .nav-links {
+        width: 100%;
+        display: none;
+        flex-direction: column;
+        padding: 1rem 0;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .nav-links a {
+        margin: 0;
+        padding: 0.8rem 2rem;
+        font-size: 0.9rem;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .social-icons {
+        display: none;
+    }
+}
 
 
 
@@ -223,6 +201,18 @@
 
     <header>
         <nav class="nav-container">
+
+
+
+            <!-- Mobile Menu Button -->
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+
+
             <div class="nav-links">
                 <a href="index.html">Home</a>
                 <a href="projects.html">Projects</a>
@@ -260,6 +250,20 @@
     <footer>
         <p>&copy; 2026 Eric Mulwa. Engineer at Craft & Precision.</p>
     </footer>
+
+
+
+<script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+    });
+</script>
+
+
+
 
 </body>
 </html>
