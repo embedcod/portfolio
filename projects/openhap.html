@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenHAP | Project Detail</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=IBM+Plex+Mono:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent: #0891b2;
+            --accent-soft: #ecfeff;
+            --border-color: rgba(15, 23, 42, 0.1);
+            --max-width: 1400px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 2; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+        }
+
+        /* --- Navigation --- */
+        header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.8rem 0;
+            position: sticky;
+            top: 0;
+            background: rgba(248, 250, 252, 0.8);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-right: 1.5rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+        .social-icons { display: flex; align-items: center; gap: 2.2rem; }
+        .social-icons img { width: 22px; height: 22px; transition: var(--transition); opacity: 0.9; }
+        .social-icons a:hover img { transform: translateY(-3px); opacity: 1; }
+
+        /* --- Hero Section --- */
+        .hero-project {
+            background: white;
+            padding: 1rem 0; /* Reduced from 5rem */
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .content-wrap {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .tag-mono {
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        h1 { font-size: 3rem; font-weight: 800; line-height: 1.2; margin-bottom: 1.5rem; color: var(--text-primary); }
+        .hero-summary { font-size: 1.1rem; color: var(--text-secondary); max-width: 1400px; margin-bottom: 2rem; }
+
+        /* --- Snapshot Grid --- */
+        .snapshot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            background: white;
+            padding: 0.8rem;
+            border-radius: 18px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        .snap-item span { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--accent); font-weight: 700; text-transform: uppercase; margin-bottom: 0.2rem;}
+        .snap-item p { font-weight: 600; font-size: 0.8rem; color: var(--text-primary); }
+
+        /* --- Flexible Image Gallery Section --- */
+        .project-gallery-section {
+            border-top: 1px solid var(--border-color);
+            padding: 5rem 0;
+            background: #ffffff;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-header h2 {
+            font-size: 2.2rem;
+            color: var(--text-primary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .gallery-header h2::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            transform: translateX(-50%);
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            align-items: stretch;
+        }
+
+        .gallery-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: contain; /* Ensures entire image is visible without distortion */
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem;
+        }
+
+        .gallery-caption {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: auto; /* Pushes caption to the bottom uniformly */
+            padding-top: 1rem;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        /* --- Footer & Nav --- */
+        .back-nav {
+            display: flex;
+            justify-content: center;
+            padding: 4rem 0;
+        }
+        .btn-back {
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+        .btn-back:hover { transform: translateX(-5px); }
+
+        footer { padding: 3rem 0; text-align: center; border-top: 1px solid var(--border-color); color: var(--text-secondary); font-size: 0.85rem; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .detail-section, .detail-section.reverse { grid-template-columns: 1fr; gap: 2rem; direction: ltr; }
+            h1 { font-size: 2.2rem; }
+        }
+        /* --- Mobile Navigation & Animations --- */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            /*background: #0e7490;*/
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 10px;
+            transition: var(--transition);
+        }
+
+        .menu-toggle span {
+            width: 28px;
+            height: 2px;
+            /*background: var(--text-primary);*/
+            background: #1ca3c8;
+            display: block;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+        }
+
+        /* Button Animation: Transforms hamburger to X */
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        /* Mobile behavior */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-container {
+                flex-wrap: wrap;
+                padding: 0.5rem 1.5rem;
+            }
+
+            .nav-links {
+                width: 100%;
+                display: flex; /* Always flex, but hidden via height/opacity */
+                flex-direction: column;
+                align-items: flex-start; 
+                text-align: left; 
+                
+                /* Animation properties */
+                max-height: 0;
+                opacity: 0;
+                overflow: hidden;
+                visibility: hidden;
+                transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+                transform: translateY(-10px);
+            }
+
+            .nav-links.show {
+                max-height: 500px; /* Large enough to fit all links */
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+                padding: 1.5rem 0;
+                border-top: 1px solid var(--border-color);
+            }
+
+            .nav-links a {
+                margin: 0;
+                padding: 1rem 0;
+                font-size: 1rem;
+                width: 100%;
+                letter-spacing: 2px;
+                opacity: 0;
+                transition: opacity 0.4s ease;
+            }
+
+            .nav-links.show a {
+                opacity: 1;
+            }
+
+            .social-icons {
+                display: none;
+            }
+        }        
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>            
+            <div class="nav-links">
+                <a href="../index.html">Home</a>
+                <a href="../projects.html" class="active">Projects</a>
+                <a href="../skills.html">Skills</a>
+                <a href="../leadership.html">Leadership</a>
+                <a href="../resume.html">Resume</a>
+                <a href="../contact.html">Contact</a>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.linkedin.com/in/eric-mulwa-a59509233" target="_blank"><img src="../assets/social_media/lin.png" alt="LinkedIn"></a>
+                <a href="https://wa.me/254796456877" target="_blank"><img src="../assets/social_media/wapp.png" alt="WhatsApp"></a>
+                <a href="mailto:ericmulwa@geviton.co.ke"><img src="../assets/social_media/gmail.png" alt="Email"></a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- TOP SECTION: All Project Information -->
+        <section class="project-hero">
+            <div class="content-wrap">
+                <h1>OpenHAP: Indoor Air Quality Monitoring Solution</h1>
+                <p class="hero-summary">
+
+                OpenHAP is a production-grade indoor Air Quality Monitoring (AQM) system engineered 
+                for accurate and reliable environmental sensing in real-world household conditions. 
+                It continuously measures Carbon Monoxide (CO), Particulate Matter (PM2.5), and ambient 
+                Temperature & Humidity, generating high-resolution exposure data for both real-time 
+                monitoring and long-term analysis.
+
+                The system integrates precision analog sensing, a high-signal-integrity multilayer PCB, 
+                and an event-driven ESP32 firmware architecture to ensure deterministic operation, 
+                measurement accuracy, and robustness in electrically noisy environments. Designed with 
+                resilience in mind, OpenHAP combines Wi-Fi and GSM connectivity with local SD card 
+                logging, guaranteeing continuous data availability even in low-infrastructure or 
+                offline scenarios.
+
+                Beyond environmental sensing, the platform enables non-invasive monitoring of human 
+                activities that contribute to indoor pollution, providing actionable insights without 
+                direct user interaction. The device forms part of a complete edge-to-cloud IoT pipeline, 
+                securely streaming telemetry to ThingsBoard for visualization, analytics, and 
+                data-driven decision-making.
+                </p>
+ 
+            <p class="hero-summary">
+                The OpenHAP system progressed beyond laboratory validation into a real-world, 
+                large-scale deployment. Commissioned by 
+                <strong>
+                    <a href="https://eedadvisory.com/" target="_blank" rel="noopener noreferrer">
+                        EED Advisory
+                    </a>
+                </strong>, the device 
+                was deployed in <strong>Namibia</strong> as part of a research exercise sanctioned 
+                by the <strong>United Nations</strong>, focused on assessing the risks posed by 
+                traditional cooking jikos to human health.
+                A total of <strong>25 OpenHAP devices</strong> were installed across multiple rural 
+                households to continuously monitor carbon monoxide exposure associated with 
+                three-stone jiko cooking practices. The collected data was used to analyze exposure 
+                trends and contribute to determining mortality risks linked to prolonged carbon 
+                monoxide inhalation in underserved communities.
+            </p>
+            <p class="hero-summary">
+                From an engineering perspective, the project provided end-to-end experience 
+                spanning rapid prototyping, hardware and firmware iteration, design for 
+                manufacturing (DFM), regulatory certification, and post-deployment technical 
+                support. All devices were <strong>certified by KEBS</strong> prior to shipment, 
+                ensuring compliance with applicable safety and quality standards.
+                Deployment and operational support were conducted remotely, with engineering 
+                coordination carried out from Kenya while the field deployment occurred in 
+                Namibia. The system operated reliably throughout the study period, and the 
+                project successfully met its intended research objectives, validating both the 
+                technical design and the overall system architecture.
+            </p>
+
+
+                <div class="snapshot-grid">
+                    <div class="snap-item"><span>System Type</span><p>AQM Device</p></div>
+                    <div class="snap-item"><span>Connectivity</span><p>GSM/ WiFi / BLE</p></div>
+                    <div class="snap-item"><span>Sensors</span><p>Wired & BLE</p></div>
+                    <div class="snap-item"><span>My Role</span><p>Lead Design Engineer</p></div>
+                    <div class="snap-item"><span>Timeline</span><p>Prototype to DFM</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BOTTOM SECTION: Flexible Image Gallery -->
+        <section class="project-gallery-section">
+            <div class="content-wrap">
+                <div class="gallery-header">
+                    <h2>Project Visuals</h2>
+                </div>
+                
+                <div class="image-grid">
+                    
+                    <!-- You can copy and paste this block as many times as you want to add more photos -->
+                    <div class="gallery-card">
+                        <img src="project_images/openhap/openhap_complete.png" alt="OpenHAP Device">
+                        <p class="gallery-caption">The production-ready OpenHAP device and its accessories.</p>
+                    </div>
+
+                    <div class="gallery-card">
+                        <img src="project_images/openhap/OpenHap Front.png" alt="PCB Layout Front">
+                        <p class="gallery-caption">Multilayer PCB layout designed in KiCad (Front view).</p>
+                    </div>
+
+                    <div class="gallery-card">
+                        <img src="project_images/openhap/OpenHap Back.png" alt="PCB Layout Back">
+                        <p class="gallery-caption">Multilayer PCB layout designed in KiCad (Back view).</p>
+                    </div>
+
+                    <div class="gallery-card">
+                        <img src="project_images/openhap/openhap_firmware.png" alt="OpenHAP Firmware State Machine">
+                        <p class="gallery-caption">Event-driven finite state machine architecture implemented using ESP-IDF.</p>
+                    </div>
+
+                    <div class="gallery-card">
+                        <img src="project_images/openhap/openhap_thingsboard_dashboard.png" alt="ThingsBoard Dashboard">
+                        <p class="gallery-caption">Cloud-based ThingsBoard dashboard for remote monitoring and analytics.</p>
+                    </div>
+
+                    <div class="gallery-card">
+                        <img src="project_images/openhap/openhap_websocket_dashboard.png" alt="Local WebSocket Dashboard">
+                        <p class="gallery-caption">Local WebSocket dashboard providing real-time data visualization.</p>
+                    </div>
+
+                    <div class="gallery-card">
+                        <img src="project_images/openhap/openhap_open.png" alt="Inside the OpenHAP device">
+                        <p class="gallery-caption">Inside the production-ready OpenHAP device.</p>
+                    </div>       
+
+                    <div class="gallery-card">
+                        <img src="project_images/openhap/openhap_prototype.png" alt="Openhap Prototype">
+                        <p class="gallery-caption">Openhap Prototype.</p>
+                    </div>    
+                    
+                    <div class="gallery-card">
+                        <img src="project_images/openhap/openhap_charging.jpg" alt="Openhap Devices Charging">
+                        <p class="gallery-caption">Openhap Devices Charging.</p>
+                    </div>                     
+                    <!-- End of image card block -->
+
+                </div>
+
+                <nav class="back-nav">
+                    <a href="../projects.html" class="btn-back">← Back to All Engineering Projects</a>
+                </nav>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Eric Mulwa. Engineered for Precision & Sustainability.</p>
+    </footer>
+    
+    <!-- js script -->
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            // Toggle the X animation on the button
+            menuToggle.classList.toggle('active');
+            // Toggle the dropdown visibility
+            navLinks.classList.toggle('show');
+        });
+
+        // Close menu when a link is clicked (useful for one-page navigation)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('show');
+            });
+        });
+    </script>
+</body>
+</html>
