@@ -322,132 +322,186 @@
     </header>
 
     <main>
+
         <!-- TOP SECTION: All Project Information -->
         <section class="project-hero">
             <div class="content-wrap">
-                <h1>eTalking Stick: Smart Meeting Timer & Bluetooth Audio System</h1>
+
+                <h1>Songa Jinko Controller: Industrial Solar Telemetry & Monitoring System</h1>
 
                 <p class="hero-summary">
-
-                    The eTalking Stick is an embedded smart timing and speaker management device designed 
-                    to improve structure, fairness, and engagement during meetings and public discussions. 
-                    Inspired by the traditional Native American talking stick concept, the system combines 
-                    Bluetooth microphone functionality, intelligent countdown timing, vibration alerts, and 
-                    an interactive user interface into a single handheld platform.
-
-                    The device enables speakers to connect wirelessly to Bluetooth audio systems while 
-                    simultaneously managing speaking duration through customizable countdown timers and 
-                    visual feedback mechanisms. A vibration alert system and high-visibility LED indicators 
-                    provide intuitive real-time feedback to the speaker without disrupting the meeting flow.
-
-                    Engineered around a deterministic embedded firmware architecture, the system features a 
-                    fully menu-driven graphical interface controlled using a multi-action click wheel and 
-                    power button combination. The firmware handles Bluetooth connectivity, timer management, 
-                    power control, vibration alerts, and user interactions through structured state-based logic, 
-                    ensuring predictable and responsive device behavior.
+                    The Songa Jinko Controller is an industrial-grade telemetry and monitoring controller
+                    engineered for reliable communication with DEYE 3-phase Solar Inverters over ModBus RTU (RS-485).
+                    The system operates as the primary data acquisition and control master, continuously
+                    collecting operational and electrical parameters from connected inverters, processing the
+                    information deterministically, and securely publishing telemetry and events to the Songa
+                    ThingsBoard IoT platform using GSM MQTT communication through a Quectel cellular module.
+                    Designed around the ESP32 platform and ESP-IDF framework, the controller combines
+                    industrial communication reliability, deterministic firmware execution, and robust
+                    fail-safe recovery mechanisms for remote solar energy monitoring applications.
                 </p>
 
                 <p class="hero-summary">
+                    The firmware architecture is implemented as a deterministic FreeRTOS-based Safe-Thread
+                    System with tasks explicitly pinned to ESP32 cores to guarantee predictable execution,
+                    watchdog safety, and task isolation. The MQTT communication task is pinned to Core 0
+                    for GSM connectivity, MQTT handling, RPC operations, and device provisioning, while the
+                    RS485 ModBus polling and inverter data acquisition task operates independently on Core 1.
+                    An additional UART configuration task handles user commands and field configuration
+                    operations. The firmware follows a fully non-blocking RTOS-driven architecture with
+                    interrupt-based button handling, time-scheduled telemetry publishing, persistent device
+                    identity storage using NVS, and automated recovery mechanisms for resilient field
+                    operation in harsh industrial environments.
+                </p>
 
-                    From a hardware perspective, the project involved complete end-to-end embedded product 
-                    development including PCB design, enclosure integration, power management, battery charging, 
-                    user interface electronics, and embedded firmware implementation. The device operates from a 
-                    removable 18650 lithium battery with USB-C charging support and was optimized for portability, 
-                    long battery life, and reliable wireless audio performance.
-
-                    Beyond functionality, significant focus was placed on industrial design and user experience. 
-                    Multiple enclosure iterations and PCB revisions were developed to achieve a compact, ergonomic, 
-                    and production-ready handheld form factor suitable for professional meeting environments, 
-                    conferences, and moderated discussions.
+                <p class="hero-summary">
+                    From a systems engineering perspective, the project involved embedded firmware
+                    architecture design, industrial communication integration, GSM MQTT telemetry systems,
+                    inverter interfacing, hardware prototyping, installation support, and real-world testing
+                    using live inverter systems. The controller supports first-boot provisioning,
+                    re-provisioning logic, remote RPC handling, watchdog-supervised execution, and real-time
+                    audible and visual feedback through LEDs and buzzer indicators. The development process
+                    included extensive bench testing, live inverter integration, prototype iteration, and
+                    complete deployment validation to ensure stable telemetry acquisition and reliable remote
+                    monitoring performance in operational solar installations.
                 </p>
 
                 <div class="snapshot-grid">
-                    <div class="snap-item"><span>System Type</span><p>Smart Meeting Device</p></div>
-                    <div class="snap-item"><span>Connectivity</span><p>Bluetooth</p></div>
-                    <div class="snap-item"><span>Features</span><p>Timer / Audio / Alerts</p></div>
-                    <div class="snap-item"><span>Power</span><p>18650 Li-Ion Battery</p></div>
-                    <div class="snap-item"><span>Role</span><p>Embedded Systems Engineer</p></div>
+                    <div class="snap-item">
+                        <span>System Type</span>
+                        <p>Industrial IoT Controller</p>
+                    </div>
+
+                    <div class="snap-item">
+                        <span>Connectivity</span>
+                        <p>GSM / RS485 / MQTT</p>
+                    </div>
+
+                    <div class="snap-item">
+                        <span>Protocol</span>
+                        <p>ModBus RTU</p>
+                    </div>
+
+                    <div class="snap-item">
+                        <span>Platform</span>
+                        <p>ESP32 + FreeRTOS</p>
+                    </div>
+
+                    <div class="snap-item">
+                        <span>My Role</span>
+                        <p>Embedded Systems Engineer</p>
+                    </div>
+
+                    <div class="snap-item">
+                        <span>Application</span>
+                        <p>Solar Telemetry & Monitoring</p>
+                    </div>
                 </div>
+
             </div>
         </section>
 
         <!-- BOTTOM SECTION: Flexible Image Gallery -->
         <section class="project-gallery-section">
             <div class="content-wrap">
+
                 <div class="gallery-header">
                     <h2>Project Visuals</h2>
                 </div>
-                
+
                 <div class="image-grid">
-                    
+
+                    <!-- IMAGE 1 -->
                     <div class="gallery-card">
-                        <img src="project_images/etalking/E-Talking Stick Main Back.png" alt="eTalking Main PCB Back">
+                        <img src="project_images/songa_jinko/jinko_controller.jpg" alt="Songa Jinko Controller">
                         <p class="gallery-caption">
-                            Main embedded control PCB featuring Bluetooth audio, power management, and display interfacing circuitry.
+                            Final Songa Jinko Controller enclosure designed for industrial deployment and
+                            remote inverter telemetry applications.
                         </p>
                     </div>
 
+                    <!-- IMAGE 2 -->
                     <div class="gallery-card">
-                        <img src="project_images/etalking/E-Talking Stick Main Front.png" alt="eTalking Main PCB Front">
+                        <img src="project_images/songa_jinko/inverter_setup.jpg" alt="Inverter Testing Setup">
                         <p class="gallery-caption">
-                            Front side of the primary PCB integrating embedded processing, battery charging, and system interconnects.
+                            Laboratory inverter testing setup used for firmware validation, RS485 communication
+                            testing, telemetry acquisition, and MQTT publishing verification.
                         </p>
                     </div>
 
+                    <!-- IMAGE 3 -->
                     <div class="gallery-card">
-                        <img src="project_images/etalking/Etalking.png" alt="eTalking Device Prototype">
+                        <img src="project_images/songa_jinko/3phase_inverters.jpg" alt="Three Phase Solar Inverters">
                         <p class="gallery-caption">
-                            Early enclosure and industrial design prototypes used during hardware validation and ergonomic testing.
+                            Three-phase DEYE solar inverter installation used during live telemetry integration
+                            and ModBus RTU communication testing with the Jinko Controller.
                         </p>
                     </div>
 
+                    <!-- IMAGE 4 -->
                     <div class="gallery-card">
-                        <img src="project_images/etalking/E-Talking.png" alt="eTalking Final Devices">
+                        <img src="project_images/songa_jinko/jinko_installation.jpg" alt="Jinko Installation Panel">
                         <p class="gallery-caption">
-                            Final production-ready eTalking Stick devices with integrated display, timer interface, and Bluetooth functionality.
+                            installation panel at Kisii showing industrial wiring, power distribution,
+                            communication interfaces, and integrated control hardware.
                         </p>
                     </div>
 
+                    <!-- IMAGE 5 -->
                     <div class="gallery-card">
-                        <img src="project_images/etalking/eTalking_Aux_Top_Analogue_Back.png" alt="Auxiliary PCB Design">
+                        <img src="project_images/songa_jinko/jinko_inverter_test.jpg" alt="Jinko Inverter Test">
                         <p class="gallery-caption">
-                            Auxiliary analogue PCB designed for sensor interfacing, signal routing, and peripheral integration.
+                            Inverter integration and communication test assembly used during system debugging,
+                            telemetry validation, and ModBus RTU verification.
                         </p>
                     </div>
 
+                    <!-- IMAGE 6 -->
                     <div class="gallery-card">
-                        <img src="project_images/etalking/etalking_device.jpg" alt="eTalking Device in Use">
+                        <img src="project_images/songa_jinko/jinko_prototype.jpg" alt="Jinko Prototype PCB">
                         <p class="gallery-caption">
-                            The eTalking Stick deployed in a real meeting environment during live operational testing.
+                            Early Jinko Controller prototype PCB featuring ESP32-based control hardware,
+                            communication circuitry, GSM integration, and power management subsystems.
                         </p>
                     </div>
 
+                    <!-- IMAGE 7 -->
                     <div class="gallery-card">
-                        <img src="project_images/etalking/etalking_live.jpg" alt="eTalking Live Demonstration">
+                        <img src="project_images/songa_jinko/jinko_setup_test.jpg" alt="Jinko Setup Test Bench">
                         <p class="gallery-caption">
-                            Live public demonstration and presentation of the eTalking Stick system during a technology showcase event.
+                            Bench testing environment used for firmware debugging, UART command validation,
+                            inverter polling tests, and MQTT telemetry verification.
                         </p>
                     </div>
 
+                    <!-- IMAGE 8 -->
                     <div class="gallery-card">
-                        <img src="project_images/etalking/inside_etalking.jpg" alt="Internal Hardware Assembly">
+                        <img src="project_images/songa_jinko/jinko_setup_testing.jpg" alt="Jinko Setup Testing">
                         <p class="gallery-caption">
-                            Internal assembly showing integrated electronics, wiring, battery system, and mechanical packaging.
+                            Live firmware testing session demonstrating deterministic FreeRTOS task execution,
+                            inverter communication, and telemetry publishing workflows.
                         </p>
                     </div>
 
+                    <!-- IMAGE 9 -->
                     <div class="gallery-card">
-                        <img src="project_images/etalking/inside_etalking_front.jpg" alt="Internal Front Assembly">
+                        <img src="project_images/songa_jinko/jinko_system_dev.jpg" alt="Jinko System Development">
                         <p class="gallery-caption">
-                            Front-side internal view highlighting display integration, interface electronics, and structural assembly.
+                            Full system development and integration setup showing inverter hardware, battery
+                            systems, controller integration, and field deployment testing infrastructure.
                         </p>
                     </div>
+
+                    <!-- END IMAGE CARDS -->
 
                 </div>
 
                 <nav class="back-nav">
-                    <a href="../projects.html" class="btn-back">← Back to All Engineering Projects</a>
+                    <a href="../projects.html" class="btn-back">
+                        ← Back to All Engineering Projects
+                    </a>
                 </nav>
+
             </div>
         </section>
 
